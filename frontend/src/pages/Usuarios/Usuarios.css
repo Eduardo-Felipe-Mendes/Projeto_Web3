@@ -1,0 +1,106 @@
+.modal-fundo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 350px;
+}
+
+.modal h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.modal-botoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.modal-botoes button {
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+.pagina-usuarios {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.pagina-usuarios h1 {
+    margin-bottom: 20px;
+}
+
+.pagina-usuarios button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.busca {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.busca input {
+    padding: 10px;
+    width: 200px;
+}
+
+.usuario-encontrado {
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.usuario-encontrado input {
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.usuario-encontrado button {
+    margin-right: 10px;
+}
+
+.lista-usuarios {
+    display: grid;
+    gap: 15px;
+}
+
+.usuario-card {
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.usuario-card p {
+    margin: 5px 0;
+}
