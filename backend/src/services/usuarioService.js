@@ -1,7 +1,12 @@
 const Usuario = require('../models/Usuario');
+const bcrypt = require('bcrypt');
 
 const obterTodosUsuarios = async () => {
-    return await Usuario.findAll();
+    return await Usuario.findAll({
+        attributes: {
+            exclude: ['senha']
+        }
+    });
 };
 
 const criarUsuario = async (dadosUsuario) => {
@@ -9,7 +14,11 @@ const criarUsuario = async (dadosUsuario) => {
 };
 
 const obterUsuarioPorId = async (id) => {
-    return await Usuario.findByPk(id);
+    return await Usuario.findByPk(id, {
+        attributes: {
+            exclude: ['senha']
+        }
+    });
 };
 
 const editarUsuario = async (id, dadosUsuario) => {
@@ -34,10 +43,32 @@ const excluirUsuario = async (id) => {
     return usuario;
 };
 
+const loginUsuario = async (email, senha) => {
+    const usuario = await Usuario.findOne({
+        where: { email }
+    });
+
+    if (!usuario) {
+        return null;
+    }
+
+    const senhaCorreta = await bcrypt.compare(
+        senha,
+        usuario.senha
+    );
+
+    if (!senhaCorreta) {
+        return null;
+    }
+
+    return usuario;
+};
+
 module.exports = {
     obterTodosUsuarios,
     criarUsuario,
     obterUsuarioPorId,
     editarUsuario,
-    excluirUsuario
+    excluirUsuario,
+    loginUsuario
 };

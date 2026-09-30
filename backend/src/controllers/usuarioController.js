@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const usuarioService = require('../services/usuarioService');
 
 const buscarUsuarios = async (req, res) => {
@@ -104,10 +105,51 @@ const excluirUsuario = async (req, res) => {
     }
 };
 
+const login = async (req, res) => {
+    try {
+        const { email, senha } = req.body;
+
+        const usuario = await usuarioService.loginUsuario(
+            email,
+            senha
+        );
+
+        if (!usuario) {
+            return res.status(401).json({
+                message: 'Email ou senha inválidos'
+            });
+        }
+
+        const token = jwt.sign(
+            {
+                id: usuario.id,
+                email: usuario.email
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: '1h'
+            }
+        );
+
+        return res.status(200).json({
+            message: 'Login realizado com sucesso',
+            token: token
+        });
+
+    } catch (erro) {
+        console.error(erro);
+
+        return res.status(500).json({
+            message: 'Erro ao realizar login'
+        });
+    }
+};
+
 module.exports = {
     buscarUsuarios,
     criarUsuario,
     buscarUsuarioPorId,
     editarUsuario,
-    excluirUsuario
+    excluirUsuario,
+    login
 };

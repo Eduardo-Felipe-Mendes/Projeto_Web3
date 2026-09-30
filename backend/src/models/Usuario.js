@@ -5,40 +5,46 @@ const { sequelize } = require('../instances/mysql');
 class Usuario extends Model {}
 
 Usuario.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
 
-    nome: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+        nome: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
 
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+        },
 
-    senha: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+        senha: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
 
-    foto: {
-      type: DataTypes.TEXT('long'),
-      allowNull: true,
+        foto: {
+            type: DataTypes.TEXT('long'),
+            allowNull: true,
+        },
     },
-  },
-  {
-    sequelize,
-    modelName: 'Usuario',
-    tableName: 'usuarios',
-    timestamps: true
-  }
+    {
+        sequelize,
+        modelName: 'Usuario',
+        tableName: 'usuarios',
+        timestamps: true,
+
+        hooks: {
+            beforeCreate: async (usuario) => {
+                usuario.senha = await bcrypt.hash(usuario.senha, 10);
+            }
+        }
+    }
 );
 
 module.exports = Usuario;

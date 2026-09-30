@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
 import {
     getUsuarios,
     getUsuarioPorId,
@@ -10,6 +11,7 @@ import './Usuarios.css';
 
 function Usuarios() {
 
+   const { sair } = useContext(AuthContext);
    const [usuarios, setUsuarios] = useState([]);
    const [idBusca, setIdBusca] = useState('');
    const [usuarioBuscado, setUsuarioBuscado] = useState(null);
@@ -106,6 +108,11 @@ const cadastrarUsuario = async () => {
    return (
     <div className="pagina-usuarios">
             <h1>Usuários</h1>
+            
+<button onClick={sair}>
+    Sair
+</button>
+
             <button onClick={() => setModalAberto(true)}>
     Novo usuário
 </button>
